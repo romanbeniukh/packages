@@ -35,14 +35,14 @@ export default {
       state.totalPackages = data?.total
     },
     SET_PAGE(state, page) {
-      state.page = page
+      state.page = +page
     },
     SET_IS_LOADING(state, bool) {
       state.isLoading = bool
     },
     SET_DEFAULT_STATE(state) {
-      state.packages = DEFAULT_PACKAGES
       state.page = DEFAULT_PAGE
+      state.packages = DEFAULT_PACKAGES
       state.totalPackages = DEFAULT_TOTAL_PACKAGES
     }
   },
@@ -70,9 +70,14 @@ export default {
         })
     },
     SET_QUERY_ACTION({ commit }, query) {
+      commit('SET_PAGE', DEFAULT_PAGE)
       commit('SET_QUERY', query)
     },
     SET_PAGE_ACTION({ commit }, page) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
       commit('SET_PAGE', page)
     },
     SET_DEFAULT_STATE_ACTION({ commit }) {
