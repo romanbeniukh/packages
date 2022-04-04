@@ -1,8 +1,5 @@
 <template>
-  <v-list v-if="packages" lines="2" class="packages-list">
-    <v-list-subheader class="packages-list__subheader">
-      {{ totalPackages }} packages found
-    </v-list-subheader>
+  <v-list lines="2" class="packages-list">
     <package-list-item
       v-for="(item, idx) of packages"
       :key="idx"
@@ -23,10 +20,6 @@ export default {
     packages: {
       type: [Array, null],
       required: true
-    },
-    totalPackages: {
-      type: Number,
-      default: 0
     }
   },
   emits: ['item-click'],
