@@ -83,6 +83,7 @@ export default {
 
 .package-item__title
   font-size: 20px
+  white-space: normal
 
 .package-item__subtitle
   margin-top: 10px
