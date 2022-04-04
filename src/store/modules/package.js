@@ -1,4 +1,5 @@
 import api from '@/api'
+import { notify } from '@kyvg/vue3-notification'
 
 export default {
   namespaced: true,
@@ -23,7 +24,6 @@ export default {
     GET_PACKAGE_INFO({ commit }, item) {
       commit('SET_IS_LOADING', true)
       const { name, version } = item
-      console.log(item)
 
       api.packageModule
         .getFullPackageInfo({ name, version })
@@ -31,7 +31,12 @@ export default {
           commit('SET_PACKAGE_INFO', { ...res, item })
         })
         .catch((err) => {
-          console.log(err)
+          notify({
+            group: 'error',
+            type: 'error',
+            title: 'Error',
+            text: err
+          })
         })
         .finally(() => {
           commit('SET_IS_LOADING', false)

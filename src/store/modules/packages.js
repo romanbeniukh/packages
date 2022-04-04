@@ -1,4 +1,5 @@
 import api from '@/api'
+import { notify } from '@kyvg/vue3-notification'
 
 const DEFAULT_PACKAGES = null
 const DEFAULT_PAGE = 1
@@ -59,11 +60,15 @@ export default {
       await api.packagesModule
         .getPackagesByQuery(params)
         .then((res) => {
-          // console.log(res)
           commit('SET_PACKAGES', res)
         })
         .catch((err) => {
-          console.log(err)
+          notify({
+            group: 'error',
+            type: 'error',
+            title: 'Error',
+            text: err
+          })
         })
         .finally(() => {
           commit('SET_IS_LOADING', false)
