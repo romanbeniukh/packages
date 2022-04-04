@@ -35,7 +35,7 @@
           </v-card-text>
         </template>
 
-        <template v-if="data.stats">
+        <template v-if="data.stats && data.stats.total">
           <v-card-text class="modal-card__text-title">
             Top 5 files in {{ data.item.version }}
           </v-card-text>
