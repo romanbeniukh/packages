@@ -32,8 +32,8 @@ export default {
         })
         .catch((err) => {
           notify({
-            group: 'error',
-            type: 'error',
+            group: 'warn',
+            type: 'warn',
             title: 'Error',
             text: err
           })

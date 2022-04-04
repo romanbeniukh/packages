@@ -75,15 +75,6 @@ export default {
     handleCloseModal() {
       this.SET_IS_OPENED_MODAL_ACTION(false)
     }
-  },
-  mounted() {
-    // simple
-    this.$notify({
-      group: 'error',
-      type: 'error',
-      title: 'Authorization',
-      text: 'You have been logged in!'
-    })
   }
 }
 </script>
