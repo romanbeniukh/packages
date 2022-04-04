@@ -3,20 +3,16 @@
     <header class="packages-wrap__header">
       <h2 class="packages-wrap__title">{{ totalPackages }} packages found</h2>
       <list-table-switcher
+        v-if="totalPackages"
         @change="handleListTableSwitcher"
         :default-view="listView"
       />
     </header>
-
     <component
       :is="activeViewComponent"
       :packages="packages"
       @item-click="getPackageInfo"
     />
-    <!--
-    />-->
-    <!--    <packages-list :packages="packages" @item-click="getPackageInfo" />-->
-    <!--    <packages-table :packages="packages" @item-click="getPackageInfo" />-->
     <base-paginator
       :page="page"
       :total-pages="totalPages"
