@@ -6,6 +6,7 @@
       </v-main>
     </layout-main>
   </v-app>
+  <notifications group="warn" position="top center" :max="3" />
 </template>
 
 <script>
