@@ -14,7 +14,8 @@ export default {
     page: DEFAULT_PAGE,
     perPage: DEFAULT_PER_PAGE,
     totalPackages: DEFAULT_TOTAL_PACKAGES,
-    isLoading: false
+    isLoading: false,
+    listView: 'list'
   },
   getters: {
     offset(state) {
@@ -45,6 +46,9 @@ export default {
       state.page = DEFAULT_PAGE
       state.packages = DEFAULT_PACKAGES
       state.totalPackages = DEFAULT_TOTAL_PACKAGES
+    },
+    SET_LIST_VIEW(state, string) {
+      state.listView = string
     }
   },
   actions: {
@@ -87,6 +91,9 @@ export default {
     },
     SET_DEFAULT_STATE_ACTION({ commit }) {
       commit('SET_DEFAULT_STATE')
+    },
+    SET_LIST_VIEW_ACTION({ commit }, string) {
+      commit('SET_LIST_VIEW', string)
     }
   }
 }

@@ -1,21 +1,14 @@
 <template>
-  <search-field
-    :query="query"
-    :is-loading="isLoadingPackages"
-    @input="handleSearch"
-  />
-  <packages-list
-    :packages="packages"
-    :total-packages="totalPackages"
-    @item-click="getPackageInfo"
-  />
-  <base-paginator :page="page" :total-pages="totalPages" @change="handlePage" />
-  <package-modal
-    :data="packageInfo"
-    @close="handleCloseModal"
-    :is-opened-modal="isOpenedModal"
-    :is-loading="isLoadingPackage"
-  />
+  <div class="home-view">
+    <h1 class="home-view__title">Home page</h1>
+    <search-field
+      :query="query"
+      :is-loading="isLoadingPackages"
+      @input="handleSearch"
+      class="home-view__search"
+    />
+    <PackagesWrap />
+  </div>
 </template>
 
 <script>
@@ -23,38 +16,26 @@ import { mapState, mapGetters, mapActions } from 'vuex'
 import { debounce } from '@/helpers/debounce'
 
 import SearchField from '@/components/search/SearchField'
-import PackagesList from '@/components/packages/PackagesList'
-import BasePaginator from '@/components/pagination/BasePaginator'
-import PackageModal from '@/components/packages/PackageModal'
+import PackagesWrap from '@/components/packages/PackagesWrap'
 
 export default {
   name: 'HomeView',
-  components: { PackageModal, BasePaginator, PackagesList, SearchField },
+  components: {
+    PackagesWrap,
+    SearchField
+  },
   computed: {
     ...mapGetters('packagesModule', ['totalPages']),
     ...mapState('packagesModule', {
       query: (state) => state.query,
-      packages: (state) => state.packages,
-      totalPackages: (state) => state.totalPackages,
-      isLoadingPackages: (state) => state.isLoading,
-      page: (state) => state.page
-    }),
-    ...mapState('packageModule', {
-      packageInfo: (state) => state.packageInfo,
-      isOpenedModal: (state) => state.isOpenedModal,
-      isLoadingPackage: (state) => state.isLoading
+      isLoadingPackages: (state) => state.isLoading
     })
   },
   methods: {
     ...mapActions('packagesModule', [
       'GET_PACKAGES',
       'SET_DEFAULT_STATE_ACTION',
-      'SET_QUERY_ACTION',
-      'SET_PAGE_ACTION'
-    ]),
-    ...mapActions('packageModule', [
-      'GET_PACKAGE_INFO',
-      'SET_IS_OPENED_MODAL_ACTION'
+      'SET_QUERY_ACTION'
     ]),
     getDebouncedPackages: debounce(function () {
       this.GET_PACKAGES()
@@ -63,18 +44,17 @@ export default {
       this.SET_QUERY_ACTION(value)
       if (!value) return this.SET_DEFAULT_STATE_ACTION()
       this.getDebouncedPackages()
-    },
-    handlePage(value) {
-      this.SET_PAGE_ACTION(value)
-      this.GET_PACKAGES()
-    },
-    getPackageInfo(e) {
-      this.SET_IS_OPENED_MODAL_ACTION(true)
-      this.GET_PACKAGE_INFO(e)
-    },
-    handleCloseModal() {
-      this.SET_IS_OPENED_MODAL_ACTION(false)
     }
   }
 }
 </script>
+
+<style scoped lang="sass">
+.home-view__title
+  font-size: 24px
+  font-weight: 500
+  margin: 10px 0
+
+.home-view__search
+  margin-top: 25px
+</style>
