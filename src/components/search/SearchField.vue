@@ -1,7 +1,6 @@
 <template>
   <v-text-field
     v-model="computedQuery"
-    @click:clear="handleClear"
     :loading="isLoading"
     label="search all of npm"
     variant="outlined"
@@ -35,10 +34,14 @@ export default {
       }
     }
   },
-  methods: {
-    handleClear() {
-      this.$emit('clear')
-    }
+  created() {
+    // For first load
+    this.unwatchComputedQuery = this.$watch('computedQuery', (value) => {
+      if (value) {
+        this.$emit('input', value)
+        this.unwatchComputedQuery()
+      }
+    })
   }
 }
 </script>

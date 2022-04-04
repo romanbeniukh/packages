@@ -3,7 +3,6 @@
     :query="query"
     :is-loading="isLoadingPackages"
     @input="handleSearch"
-    @clear="SET_DEFAULT_STATE_ACTION"
   />
   <packages-list
     :packages="packages"
