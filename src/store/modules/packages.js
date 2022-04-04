@@ -47,9 +47,9 @@ export default {
     }
   },
   actions: {
-    async GET_PACKAGES({ commit, state, getters }, query) {
+    async GET_PACKAGES({ commit, state, getters }) {
       const params = {
-        text: query,
+        text: state.query,
         from: getters.offset,
         size: state.perPage
       }

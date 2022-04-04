@@ -1,17 +1,22 @@
 <template>
-  <v-list-item class="align-start flex-column package-list-item">
-    <v-list-item-header class="mb-4">
-      <v-list-item-title>{{ data.name }}</v-list-item-title>
-      <v-list-item-subtitle v-if="data.description" class="mt-2">{{
-        data.description
-      }}</v-list-item-subtitle>
+  <v-list-item class="package-item">
+    <v-list-item-header class="package-item__header">
+      <v-list-item-title class="package-item__title">
+        {{ data.name }}
+      </v-list-item-title>
+      <v-list-item-subtitle
+        v-if="data.description"
+        class="package-item__subtitle"
+      >
+        {{ data.description }}
+      </v-list-item-subtitle>
     </v-list-item-header>
-    <div v-if="computedKeywords" class="flex mb-3">
+    <div v-if="computedKeywords" class="package-item__keywords">
       <v-chip
         v-for="(item, idx) of computedKeywords"
         :key="idx"
         size="small"
-        class="mr-2 mb-1"
+        class="package-item__keyword"
         label
       >
         {{ item }}
@@ -19,11 +24,12 @@
     </div>
     <div>
       <a
+        @click.stop
         :href="'mailto:' + data.publisher.email"
-        class="package-list-item__link"
+        class="package-item__link"
         >{{ data.publisher.username }}</a
       >
-      <span :title="computedDate" class="text-grey"
+      <span :title="computedDate" class="package-item__link-text"
         >published {{ data.version }} • {{ computedDateString }}</span
       >
     </div>
@@ -67,7 +73,27 @@ export default {
 </script>
 
 <style scoped lang="sass">
-.package-list-item__link
+.package-item
+  display: flex
+  flex-flow: column
+  align-items: flex-start
+
+.package-item__header
+  margin-bottom: 20px
+
+.package-item__title
+  font-size: 20px
+
+.package-item__subtitle
+  margin-top: 10px
+
+.package-item__keywords
+  margin-bottom: 20px
+
+.package-item__keyword
+  margin: 0 10px 5px 0
+
+.package-item__link
   text-decoration: none
   color: #000
   margin-right: 5px
@@ -75,4 +101,7 @@ export default {
 
   &:hover
     color: #ff2f00
+
+.package-item__link-text
+  color: #909090
 </style>
